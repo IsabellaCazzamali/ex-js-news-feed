@@ -63,7 +63,7 @@ postsFeed.forEach(post => {
     const postMarkup = `
         <div class="post">
             <div class="post-body">
-                <h3>${title}</h3> <span><i class="fa-solid fa-bookmark fa-xl"></i></span>
+                <h3>${title}</h3> <span><i id="save-me" class="fa-solid fa-bookmark fa-xl"></i></span>
                 <div class="post-author">${author}</div>
                 <div class="post-date">${published}</div>
                 <p class="post-content">${content}</p>
@@ -74,7 +74,15 @@ postsFeed.forEach(post => {
             </div>
         </div>
         `
-    console.log(postMarkup);
+    // console.log(postMarkup);
 
     postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
+})
+
+// click
+let clickableSavedBookmark = document.querySelector('.fa-bookmark');
+    // console.log(clickableSavedBookmark);
+
+clickableSavedBookmark.addEventListener('click', function(){
+    console.log('clicked');
 })
