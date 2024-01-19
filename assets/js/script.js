@@ -52,24 +52,29 @@ const postsFeed = [
 const postsRowEl = document.querySelector('.posts .row');
 
 
-for (let i = 0; i < postsFeed.length; i++) {
-    const post = postsFeed[i];
+postsFeed.forEach(post => {
+    console.log(post);
+    const { id, title, content, author, published, image, imageDescription, tags } = post
 
+    console.log(id, title, content, author, published, image, imageDescription, tags);
+    // console.log(isChecked(product));
+
+    // create a product item
     const postMarkup = `
         <div class="post">
             <div class="post-body">
-                <h3>${post.title}</h3> <span><i class="fa-solid fa-bookmark fa-xl"></i></span>
-                <div class="post-author">${post.author}</div>
-                <div class="post-date">${post.published}</div>
-                <p class="post-content">${post.content}</p>
-                <img class="post-image" src='${post.image}' alt='${post.imageDescription}'></img>
+                <h3>${title}</h3> <span><i class="fa-solid fa-bookmark fa-xl"></i></span>
+                <div class="post-author">${author}</div>
+                <div class="post-date">${published}</div>
+                <p class="post-content">${content}</p>
+                <img class="post-image" src='${image}' alt='${imageDescription}'></img>
                 <div class="post-tags">
-                    <button class="btn">${post.tags}</button>
+                    <button class="btn">${tags}</button>
                 </div>
             </div>
         </div>
         `
-    //print posts on page
-    postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
+    console.log(postMarkup);
 
-}
+    postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
+})
