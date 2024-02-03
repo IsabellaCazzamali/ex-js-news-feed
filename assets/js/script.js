@@ -90,3 +90,30 @@ clickableSavedBookmark.addEventListener('click', function(){
     bookmark.className = 'fa-solid fa-bookmark fa-xl';
     // console.log(bookmark.className);
 })
+
+
+/* // get the select value --¡But it gives me just the "all" value!
+document.getElementById('tags').value
+
+console.log(document.getElementById('tags').value);
+
+// prove - lezione biglietto treno form correzione 25.11.2023
+
+// const tagFilterElement = document.getElementById('tags');
+const geoTagElement = document.getElementById('geo');
+console.log(geoTagElement);
+
+tagFilterElement.addEventListener('click', function(){
+    console.log('clicked');
+});
+
+document.querySelector('select').addEventListener('change', ) */
+
+const selectElement = document.querySelector(".filter");
+//const result = document.querySelector(".result");
+
+selectElement.addEventListener("change", (event) => {
+  //result.textContent = `You like ${event.target.value}`;
+  console.log(`${event.target.value}`);
+})
+// 1h40 25/11 array prendere i singoli elementi ---> mettere i vari value in array?
