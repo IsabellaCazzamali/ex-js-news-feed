@@ -11,6 +11,7 @@ const postsFeed = [
         image: './assets/images/rubber-duck.jpg',
         imageDescription: 'A picture of a big rubber duck floating in the Hudson river',
         tags: ['Geo', 'Tech'],
+        saved: true,
     },
     {
         id: 2,
@@ -21,6 +22,7 @@ const postsFeed = [
         image: './assets/images/deep-sea.jpg',
         imageDescription: 'A picture of the bottom of the sea',
         tags: ['Viaggi', 'Geo'],
+        saved: false,
     },
     {
         id: 3,
@@ -30,7 +32,8 @@ const postsFeed = [
         published: 'in data 20/04/2023',
         image: './assets/images/kitchen-food.jpg',
         imageDescription: 'A picture of tomatoes, a knife, oil and some herbs',
-        tags: 'Cucina',
+        tags: ['Cucina'],
+        saved: false,
     },
     {
         id: 4,
@@ -41,6 +44,7 @@ const postsFeed = [
         image: './assets/images/modern-art.jpg',
         imageDescription: 'A picture of a wall with various wall paintings',
         tags: ['Arte', 'Tech'],
+        saved: false,
     },
 ]
 
@@ -51,12 +55,20 @@ const postsFeed = [
 const postsRowEl = document.querySelector('.posts .row');
 
 
+
 postsFeed.forEach(post => {
     console.log(post);
     const { id, title, content, author, published, image, imageDescription, tags } = post
 
     console.log(id, title, content, author, published, image, imageDescription, tags);
     // console.log(isChecked(product));
+
+    let postType = "";
+
+        tags.forEach((tag) => {
+            postType += `<label for="tags" class="${tag}">${tag}</label>`;
+    })
+    //console.log(postType);
 
     // create a post item
     const postMarkup = `
@@ -68,7 +80,7 @@ postsFeed.forEach(post => {
                 <p class="post-content">${content}</p>
                 <img class="post-image" src='${image}' alt='${imageDescription}'></img>
                 <div class="post-tags">
-                    <label for="tags">${tags}</label>
+                    ${postType}
                 </div>
             </div>
         </div>
@@ -140,7 +152,6 @@ selectElement.addEventListener("change", (event) => {
   RenderPost(filteredPosts, postsRowEl);
 
 })
-// 1h40 25/11 array prendere i singoli elementi ---> mettere i vari value in array?
 
 /**
  * Renders a list of iconst into the dom element provided

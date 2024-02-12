@@ -10,6 +10,11 @@
 :root{
     --black: rgba(5,5,5,255);
     --primary: rgba(2,48,71,255);
+    --geo_green: rgba(0,128,1,255);
+    --blue_tech: rgba(0,0,128,255);
+    --cooking_purple: rgba(128,0,128,255);
+    --orange_travel: rgba(243,163,96,255);
+    --yellow_art: rgba(255,214,1,255);
 }
 
 img{
@@ -98,9 +103,33 @@ input{
 }
 
 .post-tags label{
-    background-color: bisque;
     padding: 0.5rem;
     border-radius: 15%;
+    margin-right: 0.5rem;
+}
+
+.post-tags label{
+    color: white;
+}
+
+.post-tags label.Geo{
+    background-color: var(--geo_green);
+}
+
+.post-tags label.Tech{
+    background-color: var(--blue_tech);
+}
+
+.post-tags label.Viaggi{
+    background-color: var(--orange_travel);
+}
+
+.post-tags label.Cucina{
+    background-color: var(--cooking_purple);
+}
+
+.post-tags label.Arte{
+    background-color: var(--yellow_art);
 }
 
 /* #endregion Main */
