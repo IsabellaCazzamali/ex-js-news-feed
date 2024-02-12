@@ -10,7 +10,7 @@ const postsFeed = [
         published: 'in data 11/02/2023',
         image: './assets/images/rubber-duck.jpg',
         imageDescription: 'A picture of a big rubber duck floating in the Hudson river',
-        tags: ['geo', 'tech'],
+        tags: ['Geo', 'Tech'],
     },
     {
         id: 2,
@@ -20,7 +20,7 @@ const postsFeed = [
         published: 'in data 14/03/2023',
         image: './assets/images/deep-sea.jpg',
         imageDescription: 'A picture of the bottom of the sea',
-        tags: ['viaggi', 'geo'],
+        tags: ['Viaggi', 'Geo'],
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ const postsFeed = [
         published: 'in data 20/04/2023',
         image: './assets/images/kitchen-food.jpg',
         imageDescription: 'A picture of tomatoes, a knife, oil and some herbs',
-        tags: ['cucina'],
+        tags: 'Cucina',
     },
     {
         id: 4,
@@ -40,12 +40,11 @@ const postsFeed = [
         published: 'in data 29/05/2023',
         image: './assets/images/modern-art.jpg',
         imageDescription: 'A picture of a wall with various wall paintings',
-        tags: ['arte', 'tech'],
+        tags: ['Arte', 'Tech'],
     },
 ]
 
 //console.log(postsFeed);
-
 
 
 // variable with for loop to create posts
@@ -59,7 +58,7 @@ postsFeed.forEach(post => {
     console.log(id, title, content, author, published, image, imageDescription, tags);
     // console.log(isChecked(product));
 
-    // create a product item
+    // create a post item
     const postMarkup = `
         <div class="post">
             <div class="post-body">
@@ -69,7 +68,7 @@ postsFeed.forEach(post => {
                 <p class="post-content">${content}</p>
                 <img class="post-image" src='${image}' alt='${imageDescription}'></img>
                 <div class="post-tags">
-                    <button class="btn">${tags}</button>
+                    <label for="tags">${tags}</label>
                 </div>
             </div>
         </div>
@@ -79,41 +78,83 @@ postsFeed.forEach(post => {
     postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
 })
 
-// click
+
+
+// add click to the bookmark
+//let clickableSavedBookmark = document.querySelectorAll('.fa-bookmark');
 let clickableSavedBookmark = document.querySelector('.fa-bookmark');
     // console.log(clickableSavedBookmark);
 
-clickableSavedBookmark.addEventListener('click', function(){
-    // console.log('clicked');
-    let bookmark = document.querySelector('i');
-    // console.log(bookmark);
-    bookmark.className = 'fa-solid fa-bookmark fa-xl';
-    // console.log(bookmark.className);
-})
+/*     clickableSavedBookmark.forEach(savedBookmark => {
+
+        console.log(savedBookmark); */
+
+    /**
+     * 
+     * @param 
+     */
+    clickableSavedBookmark.addEventListener('click', function(e){
+        // console.log('clicked');
+        let bookmark = document.querySelector('i');
+        // console.log(bookmark);
+        bookmark.className = 'fa-solid fa-bookmark fa-xl';
+        // console.log(bookmark.className);
+    })
+
+/*     }) */
 
 
-/* // get the select value --¡But it gives me just the "all" value!
-document.getElementById('tags').value
+// apply the saved filter
+/* let checkMark = clickableSavedBookmark;
 
-console.log(document.getElementById('tags').value);
-
-// prove - lezione biglietto treno form correzione 25.11.2023
-
-// const tagFilterElement = document.getElementById('tags');
-const geoTagElement = document.getElementById('geo');
-console.log(geoTagElement);
-
-tagFilterElement.addEventListener('click', function(){
-    console.log('clicked');
+const check = checkMark.filter((checkBookmark) => {
+    if (checkBookmark === `fa-solid fa-bookmark fa-xl`) {
+        return true;
+    }
+    return false;
 });
+console.log(check); */
 
-document.querySelector('select').addEventListener('change', ) */
+
 
 const selectElement = document.querySelector(".filter");
 //const result = document.querySelector(".result");
 
 selectElement.addEventListener("change", (event) => {
   //result.textContent = `You like ${event.target.value}`;
+  // console.log(`${event.target.value}`);
+  console.log(event);
   console.log(`${event.target.value}`);
+
+
+  const filteredPosts = postsFeed.filter(filteredPost => {
+    return filteredPost.tags === `${event.target.value}` || event.target.value === 'all'
+  })
+
+
+  console.log(filteredPosts);
+
+
+  postsRowEl.innerHTML = ''
+
+  RenderPost(filteredPosts, postsRowEl);
+
 })
 // 1h40 25/11 array prendere i singoli elementi ---> mettere i vari value in array?
+
+/**
+ * Renders a list of iconst into the dom element provided
+ * @param {Array} iconsList A an of icons objects
+ * @param {object} domElement the node where append all icons
+ */
+/* function renderPost(iconsList, domElement) {
+    iconsList.forEach(icon => {
+      //console.log(icon);
+  
+      const iconEl = generateIcon(icon)
+      //console.log(iconEl);
+  
+      domElement.appendChild(iconEl)
+  
+    })
+  } */

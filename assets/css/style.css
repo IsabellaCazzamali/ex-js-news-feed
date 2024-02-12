@@ -97,4 +97,10 @@ input{
     padding-top: 0.75rem;
 }
 
+.post-tags label{
+    background-color: bisque;
+    padding: 0.5rem;
+    border-radius: 15%;
+}
+
 /* #endregion Main */
