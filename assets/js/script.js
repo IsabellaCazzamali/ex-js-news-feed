@@ -50,17 +50,19 @@ const postsFeed = [
 
 //console.log(postsFeed);
 
+function RenderPost(posts){
+
 
 // variable with for loop to create posts
 const postsRowEl = document.querySelector('.posts .row');
 
+postsRowEl.innerHTML = '';
 
-
-postsFeed.forEach(post => {
+posts.forEach(post => {
     console.log(post);
     const { id, title, content, author, published, image, imageDescription, tags } = post
 
-    console.log(id, title, content, author, published, image, imageDescription, tags);
+    //console.log(id, title, content, author, published, image, imageDescription, tags);
     // console.log(isChecked(product));
 
     let postType = "";
@@ -89,83 +91,68 @@ postsFeed.forEach(post => {
 
     postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
 })
+};
 
-
+let isSaved = [];
 
 // add click to the bookmark
 //let clickableSavedBookmark = document.querySelectorAll('.fa-bookmark');
-let clickableSavedBookmark = document.querySelector('.fa-bookmark');
-    // console.log(clickableSavedBookmark);
 
-/*     clickableSavedBookmark.forEach(savedBookmark => {
+let clickableSavedBookmarks = document.querySelectorAll('.fa-bookmark');
 
-        console.log(savedBookmark); */
+clickableSavedBookmarks.forEach((savedBookmark, index) => {
 
     /**
      * 
      * @param 
      */
-    clickableSavedBookmark.addEventListener('click', function(e){
+    savedBookmark.addEventListener('click', function(e){
         // console.log('clicked');
         let bookmark = document.querySelector('i');
         // console.log(bookmark);
         bookmark.className = 'fa-solid fa-bookmark fa-xl';
+        isSaved.push(index);
         // console.log(bookmark.className);
     })
 
-/*     }) */
+    applyFilter(isSaved);
 
 
-// apply the saved filter
-/* let checkMark = clickableSavedBookmark;
-
-const check = checkMark.filter((checkBookmark) => {
-    if (checkBookmark === `fa-solid fa-bookmark fa-xl`) {
-        return true;
-    }
-    return false;
-});
-console.log(check); */
-
+})
 
 
 const selectElement = document.querySelector(".filter");
 //const result = document.querySelector(".result");
 
 selectElement.addEventListener("change", (event) => {
-  //result.textContent = `You like ${event.target.value}`;
-  // console.log(`${event.target.value}`);
-  console.log(event);
-  console.log(`${event.target.value}`);
 
 
-  const filteredPosts = postsFeed.filter(filteredPost => {
-    return filteredPost.tags === `${event.target.value}` || event.target.value === 'all'
-  })
+  let clickedTag = `${event.target.value}`;
 
-
-  console.log(filteredPosts);
-
-
-  postsRowEl.innerHTML = ''
-
-  RenderPost(filteredPosts, postsRowEl);
+  applyFilter(event.target.value);
 
 })
 
-/**
- * Renders a list of iconst into the dom element provided
- * @param {Array} iconsList A an of icons objects
- * @param {object} domElement the node where append all icons
- */
-/* function renderPost(iconsList, domElement) {
-    iconsList.forEach(icon => {
-      //console.log(icon);
-  
-      const iconEl = generateIcon(icon)
-      //console.log(iconEl);
-  
-      domElement.appendChild(iconEl)
-  
-    })
-  } */
+
+
+function applyFilter(clickedTag, isSaved) {
+    let filteredPosts = postsFeed;
+
+    console.log(clickedTag);
+
+    if (clickedTag != 'all') {
+        filteredPosts = filteredPosts.filter((post) => {
+            return post.tags.includes(clickedTag);
+        })
+    }
+
+    if (isSaved == true) {
+        filteredPosts = filteredPosts.filter((post) => {
+            return isSaved.includes(post.id);
+        })
+    }
+    RenderPost(filteredPosts);
+}
+
+
+RenderPost(postsFeed);
