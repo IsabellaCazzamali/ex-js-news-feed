@@ -59,7 +59,7 @@ const postsRowEl = document.querySelector('.posts .row');
 postsRowEl.innerHTML = '';
 
 posts.forEach(post => {
-    console.log(post);
+    //console.log(post);
     const { id, title, content, author, published, image, imageDescription, tags } = post
 
     //console.log(id, title, content, author, published, image, imageDescription, tags);
@@ -76,7 +76,7 @@ posts.forEach(post => {
     const postMarkup = `
         <div class="post">
             <div class="post-body">
-                <h3>${title}</h3> <span><i class="fa-regular fa-bookmark fa-xl"></i></span>
+                <h3>${title}</h3> <span><i class="fa-regular fa-bookmark fa-xl" data-postId="${id}"></i></span>
                 <div class="post-author">${author}</div>
                 <div class="post-date">${published}</div>
                 <p class="post-content">${content}</p>
@@ -98,21 +98,30 @@ let isSaved = [];
 // add click to the bookmark
 //let clickableSavedBookmark = document.querySelectorAll('.fa-bookmark');
 
-let clickableSavedBookmarks = document.querySelectorAll('.fa-bookmark');
+const bookmarksEl = document.querySelectorAll('.post-body i');
+console.log(bookmarksEl);
 
-clickableSavedBookmarks.forEach((savedBookmark, index) => {
-
+bookmarksEl.forEach((savedBookmark, index) => {
+        console.log(savedBookmark, index);
     /**
      * 
      * @param 
      */
     savedBookmark.addEventListener('click', function(e){
-        // console.log('clicked');
-        let bookmark = document.querySelector('i');
+
+        const postId = Number(e.target.getAttribute('data-postId'));
+
+        console.log(postId);
+
+        //isSaved.push(postId);
+        console.log(isSaved);
+
+        savedBookmark.className = 'fa-solid fa-bookmark fa-xl';
+/*         let bookmark = document.querySelectorAll('i');
         // console.log(bookmark);
         bookmark.className = 'fa-solid fa-bookmark fa-xl';
         isSaved.push(index);
-        // console.log(bookmark.className);
+        // console.log(bookmark.className); */
     })
 
     applyFilter(isSaved);
@@ -121,10 +130,10 @@ clickableSavedBookmarks.forEach((savedBookmark, index) => {
 })
 
 
-const selectElement = document.querySelector(".filter");
+const selectTag = document.querySelector(".filter");
 //const result = document.querySelector(".result");
 
-selectElement.addEventListener("change", (event) => {
+selectTag.addEventListener("change", (event) => {
 
 
   let clickedTag = `${event.target.value}`;
