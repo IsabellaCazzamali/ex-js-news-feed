@@ -50,6 +50,8 @@ const postsFeed = [
 
 //console.log(postsFeed);
 
+let isSaved = [];
+
 function RenderPost(posts){
 
 
@@ -93,7 +95,7 @@ posts.forEach(post => {
 })
 
     const bookmarksEl = document.querySelectorAll('.post-body i');
-    console.log(bookmarksEl);
+    //console.log(bookmarksEl);
 
     bookmarksEl.forEach((savedBookmark, index) => {
             console.log(savedBookmark, index);
@@ -108,62 +110,58 @@ posts.forEach(post => {
             console.log(postId);
 
             //isSaved.push(postId);
-            console.log(isSaved);
+            //console.log(isSaved);
 
             savedBookmark.className = 'fa-solid fa-bookmark fa-xl';
-    /*         let bookmark = document.querySelectorAll('i');
-            // console.log(bookmark);
-            bookmark.className = 'fa-solid fa-bookmark fa-xl';
-            isSaved.push(index);
-            // console.log(bookmark.className); */
+
+            return postId
         })
-
-    applyFilter();
-
 
 })
 };
 
-let isSaved = [];
-
-// add click to the bookmark
-//let clickableSavedBookmark = document.querySelectorAll('.fa-bookmark');
-
-
-
-
-
 
 const selectTag = document.querySelector(".filter");
-//const result = document.querySelector(".result");
+
 
 selectTag.addEventListener("change", (event) => {
 
+    console.log(event);
 
-  let clickedTag = `${event.target.value}`;
-
-  console.log(clickedTag);
-
-  applyFilter();
+    applyFilter();
 
 })
 
+const checkedFilter = document.querySelector('.saved-selector input');
+console.log('checked');
+
+checkedFilter.addEventListener('change', function (e){
+
+    console.log(e.target.checked);
+
+    applyFilter();
+})
 
 
+//let isChecked = [];
 
 function applyFilter() {
     let filteredPosts = postsFeed;
+    let selectedTag = selectTag.value;
+    let isSavedPost = checkedFilter.checked;
+    
 
-    if (isSaved == true) {
+    if (isSavedPost == true) {
         filteredPosts = filteredPosts.filter((post) => {
-            //return isSaved.includes(post.id);
-            isSaved.push(id);
+            isSavedPost.push(id);
+            return post.bookmarksEl.includes(isSavedPost);
+            
         })
     }
 
-    if (clickedTag != 'all') {
+    if (selectedTag != 'all') {
         filteredPosts = filteredPosts.filter((post) => {
-            return post.tags.includes(clickedTag);
+            return post.tags.includes(selectedTag);
         })
     }
 
