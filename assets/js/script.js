@@ -91,6 +91,37 @@ posts.forEach(post => {
 
     postsRowEl.insertAdjacentHTML('beforeend', postMarkup);
 })
+
+    const bookmarksEl = document.querySelectorAll('.post-body i');
+    console.log(bookmarksEl);
+
+    bookmarksEl.forEach((savedBookmark, index) => {
+            console.log(savedBookmark, index);
+        /**
+         * 
+         * @param 
+         */
+        savedBookmark.addEventListener('click', function(e){
+
+            const postId = Number(e.target.getAttribute('data-postId'));
+
+            console.log(postId);
+
+            //isSaved.push(postId);
+            console.log(isSaved);
+
+            savedBookmark.className = 'fa-solid fa-bookmark fa-xl';
+    /*         let bookmark = document.querySelectorAll('i');
+            // console.log(bookmark);
+            bookmark.className = 'fa-solid fa-bookmark fa-xl';
+            isSaved.push(index);
+            // console.log(bookmark.className); */
+        })
+
+    applyFilter();
+
+
+})
 };
 
 let isSaved = [];
@@ -98,36 +129,9 @@ let isSaved = [];
 // add click to the bookmark
 //let clickableSavedBookmark = document.querySelectorAll('.fa-bookmark');
 
-const bookmarksEl = document.querySelectorAll('.post-body i');
-console.log(bookmarksEl);
-
-bookmarksEl.forEach((savedBookmark, index) => {
-        console.log(savedBookmark, index);
-    /**
-     * 
-     * @param 
-     */
-    savedBookmark.addEventListener('click', function(e){
-
-        const postId = Number(e.target.getAttribute('data-postId'));
-
-        console.log(postId);
-
-        //isSaved.push(postId);
-        console.log(isSaved);
-
-        savedBookmark.className = 'fa-solid fa-bookmark fa-xl';
-/*         let bookmark = document.querySelectorAll('i');
-        // console.log(bookmark);
-        bookmark.className = 'fa-solid fa-bookmark fa-xl';
-        isSaved.push(index);
-        // console.log(bookmark.className); */
-    })
-
-    applyFilter(isSaved);
 
 
-})
+
 
 
 const selectTag = document.querySelector(".filter");
@@ -138,16 +142,24 @@ selectTag.addEventListener("change", (event) => {
 
   let clickedTag = `${event.target.value}`;
 
-  applyFilter(event.target.value);
+  console.log(clickedTag);
+
+  applyFilter();
 
 })
 
 
 
-function applyFilter(clickedTag, isSaved) {
+
+function applyFilter() {
     let filteredPosts = postsFeed;
 
-    console.log(clickedTag);
+    if (isSaved == true) {
+        filteredPosts = filteredPosts.filter((post) => {
+            //return isSaved.includes(post.id);
+            isSaved.push(id);
+        })
+    }
 
     if (clickedTag != 'all') {
         filteredPosts = filteredPosts.filter((post) => {
@@ -155,11 +167,6 @@ function applyFilter(clickedTag, isSaved) {
         })
     }
 
-    if (isSaved == true) {
-        filteredPosts = filteredPosts.filter((post) => {
-            return isSaved.includes(post.id);
-        })
-    }
     RenderPost(filteredPosts);
 }
 
